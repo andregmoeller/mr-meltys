@@ -31,4 +31,24 @@ describe('Freezer reducer', () => {
         const newState = reducer(oldState, actions.addProductToFreezer(FLAVORS.VANILLA, 5));
         expect(newState.flavors[FLAVORS.VANILLA]).toEqual(60);
     });
+
+    it('should remove scoops from the freezer', () => {
+        const oldState = {
+            flavors: {
+                [FLAVORS.VANILLA]: 58,
+            },
+        };
+        const newState = reducer(oldState, actions.removeScoop(FLAVORS.VANILLA));
+        expect(newState.flavors[FLAVORS.VANILLA]).toEqual(57);
+    });
+
+    it('should not remove scoops and go below zero', () => {
+        const oldState = {
+            flavors: {
+                [FLAVORS.VANILLA]: 0,
+            },
+        };
+        const newState = reducer(oldState, actions.removeScoop(FLAVORS.VANILLA));
+        expect(newState.flavors[FLAVORS.VANILLA]).toEqual(0);
+    });
 });

@@ -3,6 +3,7 @@ import * as FLAVORS from '../constants/flavors';
 export const types = {
     UPDATE_TEMPERATURE: 'UPDATE_TEMPERATURE',
     ADD_PRODUCT_TO_FREEZER: 'ADD_PRODUCT_TO_FREEZER', 
+    REMOVE_SCOOP: 'REMOVE_SCOOP',
 };
 
 const DEFAULT_STATE = {
@@ -29,6 +30,16 @@ export const reducer = (state = DEFAULT_STATE, action) => {
                     [action.payload.name]: Math.min(amount, 60),
                 },
             };
+        case types.REMOVE_SCOOP: {
+            const amount = (state.flavors[action.payload] || 0) - 1;
+            return {
+                ...state,
+                flavors: {
+                    ...state.flavors,
+                    [action.payload]: Math.max(amount, 0),
+                },
+            };
+        }
         default:
             return state;
     }
@@ -48,6 +59,12 @@ export const actions = {
                 name,
                 amount,
             },
+        };
+    },
+    removeScoop(flavorName) {
+        return {
+            type: types.REMOVE_SCOOP,
+            payload: flavorName,
         };
     },
 };

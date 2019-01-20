@@ -20,4 +20,43 @@ describe('Orders reducer', () => {
         expect(typeof newState[0].createdAt).toEqual('number');
         expect(newState[0].status).toEqual('pending');
     });
+
+    it('should mark a given order as fulfilled in the store', () => {
+        const oldState = [
+            {
+                customerName: 'Cindy',
+                status: 'pending',
+            },
+        ];
+
+        const  newState = reducer(oldState, actions.fulfillOrder(0));
+
+        expect(newState[0].status).toEqual('fulfilled');
+    });
+
+    it('should mark a given order as paid in the store', () => {
+        const oldState = [
+            {
+                customerName: 'Cindy',
+                status: 'fulfilled',
+            },
+        ];
+
+        const  newState = reducer(oldState, actions.payForOrder(0));
+
+        expect(newState[0].status).toEqual('paid');
+    });
+
+    it('should remove an order from the store', () => {
+        const oldState = [
+            {
+                customerName: 'Cindy',
+                status: 'pending',
+            },
+        ];
+
+        const  newState = reducer(oldState, actions.cancelOrder(0));
+
+        expect(newState).toEqual([]);
+    });
 });

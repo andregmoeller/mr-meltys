@@ -4,6 +4,8 @@ import Panel from '../Panel/Panel';
 import FreezerFlavor from '../FreezerFlavor/FreezerFlavor';
 import store from '../../store';
 import { actions } from '../../ducks/freezer';
+import Button from '../Button/Button';
+import * as FLAVORS from '../../constants/flavors';
 
 class Freezer extends Component {
   state = {
@@ -37,6 +39,15 @@ class Freezer extends Component {
     }
   };
 
+  handleClickAddProduct = () => {
+    const allAvailableFlavors = Object.keys(FLAVORS);
+    const flavorName = window.prompt(`Enter flavor name to restock. (Choose from: ${allAvailableFlavors.join(',')})`);
+    
+    if(FLAVORS[flavorName]) {
+      this.handleClickRestock(flavorName);
+    }
+  };
+
   render() {
     const flavors = Object.keys(this.state.flavors).map(flavorName => (
       <FreezerFlavor 
@@ -49,7 +60,9 @@ class Freezer extends Component {
         
     return (
       <Panel title={`Freezer (°${this.state.temperature || 0}C)`}>
-          {flavors}
+        <Button label="Add product" onClick={this.handleClickAddProduct} /> 
+        <br />
+        {flavors}
       </Panel>
     );
   }

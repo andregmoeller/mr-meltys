@@ -21,9 +21,9 @@ const freezerReducer = (state = DEFAULT_STATE, action) => {
                     [action.payload.name]: Math.min(amount, 60),
                 },
             };
+        default:
+            return state;
     }
-
-    return state;
 };
 
 export default freezerReducer;

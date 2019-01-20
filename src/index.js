@@ -1,12 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import store from './store';
+import { VANILLA } from './constants/flavors';
+import { addProductToFreezer, updateTemperature } from './actions/freezer';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+store.subscribe(() => console.log(store.getState()));
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+store.dispatch(updateTemperature(-8));
+store.dispatch(addProductToFreezer(VANILLA, 15));

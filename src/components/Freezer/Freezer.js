@@ -3,18 +3,26 @@ import React, { Component } from 'react';
 import Panel from '../Panel/Panel';
 import FreezerFlavor from '../FreezerFlavor/FreezerFlavor';
 import store from '../../store';
+import { actions } from '../../ducks/freezer';
 
 class Freezer extends Component {
   state = {
     flavors: store.getState().freezer.flavors,
+    temperature: store.getState().freezer.temperature,
   };
 
   componentDidMount() {
     this.unsubscribe = store.subscribe(() => {
       this.setState({
         flavors: store.getState().freezer.flavors,
+        temperature: store.getState().freezer.temperature,
       });
     });
+
+    setInterval(() => {
+      const randomTemperature = -Math.round(Math.random() * 10);
+      store.dispatch(actions.updateTemperature(randomTemperature));
+    }, 2000);
   }
 
   componentWillUnmount() {
@@ -27,7 +35,7 @@ class Freezer extends Component {
     ));
         
     return (
-      <Panel title="Freezer (°0C)">
+      <Panel title={`Freezer (°${this.state.temperature || 0}C)`}>
           {flavors}
       </Panel>
     );

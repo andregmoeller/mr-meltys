@@ -29,9 +29,22 @@ class Freezer extends Component {
     this.unsubscribe();
   }
 
+  handleClickRestock = flavorName => {
+    const amount = parseInt(window.prompt(`Enter amount to restock ${flavorName}`));
+    
+    if(!isNaN(amount)) {
+      store.dispatch(actions.addProductToFreezer(flavorName, amount));
+    }
+  };
+
   render() {
     const flavors = Object.keys(this.state.flavors).map(flavorName => (
-      <FreezerFlavor flavorName={flavorName} scoops={this.state.flavors[flavorName]} key={flavorName} />
+      <FreezerFlavor 
+        onClickRestock={() => this.handleClickRestock(flavorName)}
+        flavorName={flavorName}
+        scoops={this.state.flavors[flavorName]}
+        key={flavorName}
+      />
     ));
         
     return (

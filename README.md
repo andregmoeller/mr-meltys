@@ -1,3 +1,6 @@
+# Mr Melty's
+
+This is a repository I created to accompany my viewing of [Redux in Motion](https://www.manning.com/livevideo/redux-in-motion).
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

@@ -12,6 +12,8 @@ class OrderOverview extends Component {
       case 'paid': 
         this.props.payForOrder(index);
         break;
+      default:
+        break;
     }
   };
 
